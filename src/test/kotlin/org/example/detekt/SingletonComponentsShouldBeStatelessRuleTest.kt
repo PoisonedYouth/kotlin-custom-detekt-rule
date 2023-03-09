@@ -11,7 +11,29 @@ import org.junit.jupiter.api.Test
 internal class SingletonComponentsShouldBeStatelessRuleTest(private val env: KotlinCoreEnvironment) {
 
     @Test
-    fun `reports usages for service with property state`() {
+    fun `reports usages for service with variable property state`() {
+        val code =
+            """
+            import org.springframework.stereotype.Service                
+
+            @Service
+            class UserService {
+                private var state: String = "test"
+                
+                fun doAnything(){
+                    println("Do business logic")
+               }
+
+            }
+             """.trimIndent()
+
+        val findings = SingletonComponentsShouldBeStatelessRule(Config.empty)
+            .compileAndLintWithContext(env, code)
+        findings shouldHaveSize 1
+    }
+
+    @Test
+    fun `does not reports usages for service with fix property state`() {
         val code =
             """
             import org.springframework.stereotype.Service                
@@ -29,7 +51,7 @@ internal class SingletonComponentsShouldBeStatelessRuleTest(private val env: Kot
 
         val findings = SingletonComponentsShouldBeStatelessRule(Config.empty)
             .compileAndLintWithContext(env, code)
-        findings shouldHaveSize 1
+        findings shouldHaveSize 0
     }
 
     @Test

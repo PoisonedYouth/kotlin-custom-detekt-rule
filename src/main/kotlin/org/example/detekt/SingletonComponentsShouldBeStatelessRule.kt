@@ -45,7 +45,7 @@ class SingletonComponentsShouldBeStatelessRule(config: Config) : Rule(config) {
     }
 
     private fun hasState(classBody: KtClassBody): Boolean {
-        return classBody.properties.any { it.isMember && !it.isConstant() }
+        return classBody.properties.any { it.isMember && it.isVar && !it.isConstant() }
     }
 
     private fun containsServiceAnnotation(annotationEntries: List<KtAnnotationEntry>?): Boolean {
