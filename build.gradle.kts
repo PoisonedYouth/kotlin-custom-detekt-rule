@@ -5,7 +5,7 @@ plugins {
     `maven-publish`
 }
 
-group = "org.example.detekt"
+group = "com.poisonedyouth.detekt"
 version = "1.1-SNAPSHOT"
 
 repositories {
