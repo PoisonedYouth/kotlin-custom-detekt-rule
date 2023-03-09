@@ -1,3 +1,5 @@
-MyRuleSet:
-  MyRule:
+CustomRuleSet:
+  RepositoriesNeedTransactionalRule:
+    active: true
+  SingletonComponentsShouldBeStatelessRule:
     active: true
